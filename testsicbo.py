@@ -16,7 +16,7 @@ for _ in range(1000): # Run the simulation 1000 times
         pick = random.choice([1,2]) # The winrate can be modified here by changing the ratio of 1s to 2s in this list
 
         if pick == 1: # Win
-            balance = balance + ((balance * 0.1)*1.1) # The risk and reward ratio is adjusted here the standard is 1.9
+            balance = balance + ((balance * 0.1)*3) # The risk and reward ratio is adjusted here the standard is 1.9
             o += 1
             print (f"Play {o} of iteration {i}: Win, Current balance: {balance:.2f}")
         
@@ -32,4 +32,4 @@ for _ in range(1000): # Run the simulation 1000 times
         win += 1
 
 print("")
-print(f"After 1000 plays, you doubled the account {win} times and busted {lose} times.")
+print(f"After 1000 iterations, you doubled the account {win} times and busted {lose} times.")
