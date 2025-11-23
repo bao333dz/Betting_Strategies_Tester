@@ -1,33 +1,35 @@
+# This is a simulation to apply risk management by Kelly formula in a betting game with modifiable winrate.
+
 import random
 
 win = 0
 lose = 0
 i = 0
 
-for _ in range(1000): # Chạy 1000 lần thử nghiệm
-    balance = 1000 # Số dư ban đầu
-    o = 0
-    i += 1 # Đếm số lần lặp
-    print(f"Lần lặp thứ {i}")
+for _ in range(1000): # Run the simulation 1000 times
+    balance = 1000 # Initial balance
+    o = 0 # Count plays in each iteration
+    i += 1 # Loop iteration count
+    print(f"Iteration {i}")
 
-    while balance > 1 and balance < 2000: # Chơi cho đến khi cháy tài khoản hoặc x2
-        pick = random.choice([1,2,3,4]) # Chọn ngẫu nhiên 1 (thắng) hoặc 2 (thua)
+    while balance > 1 and balance < 2000: # Play until account busts or doubles
+        pick = random.choice([1,2]) # The winrate can be modified here by changing the ratio of 1s to 2s in this list
 
-        if pick == 1: # Thắng
-            balance = balance + ((balance * 0.1)*3)
-            o += 1 # Đếm số lần chơi trong mỗi lần lặp
-            print (f"Lần chơi thứ {o} của lần lặp thứ {i}. Số dư hiện tại: {balance:.2f}")
+        if pick == 1: # Win
+            balance = balance + ((balance * 0.1)*1.9) # The risk and reward ratio is adjusted here the standard is 1.9
+            o += 1
+            print (f"Play {o} of iteration {i}. Current balance: {balance:.2f}")
         
-        else: # Thua
-            o += 1 # Đếm số lần chơi trong mỗi lần lặp
+        else: # Lose
             balance = balance - (balance * 0.1)
-            print (f"Lần chơi thứ {o} của lần lặp thứ {i}: thua, số dư hiện tại: {balance:.2f}")
+            o += 1
+            print (f"Play {o} of iteration {i}: lose, current balance: {balance:.2f}")
 
-    if balance <= 1: # Cháy tài khoản
+    if balance <= 1: # Account busted
         lose += 1
 
-    else: # X2 tài khoản
+    else: # Doubled account
         win += 1
 
 print("")
-print(f"Sau 1000 lần chơi, bạn x2 tài khoản được {win} lần và bị cháy tài khoản {lose} lần.")
+print(f"After 1000 plays, you doubled the account {win} times and busted {lose} times.")
